@@ -1,0 +1,1016 @@
+
+
+
+78K0R Linker W1.80                            Date: 9 Apr 2024 Page:   1
+
+Command:   -yC:\Program Files (x86)\Renesas Electronics\CS+\CACX\Device\
+           RL78\Devicefile -_msgoff -dr_lk.dr -oDefaultBuild\temperature
+           .lmf -gi00000000000000000000h -go04h,3FE00h,0 -gb0EEFFE0H -mi
+           0 -s -pDefaultBuild\temperature.map C:\Program Files (x86)\Re
+           nesas Electronics\CS+\CACX\CA78K0R\V1.72\lib78k0r\s0rll.rel D
+           efaultBuild\r_main.rel DefaultBuild\r_systeminit.rel DefaultB
+           uild\r_cg_cgc.rel DefaultBuild\r_cg_cgc_user.rel DefaultBuild
+           \r_cg_port.rel DefaultBuild\r_cg_port_user.rel DefaultBuild\r
+           _cg_serial.rel DefaultBuild\r_cg_serial_user.rel DefaultBuild
+           \r_cg_it.rel DefaultBuild\r_cg_it_user.rel DefaultBuild\glyph
+           .rel DefaultBuild\glyph_register.rel DefaultBuild\lcd.rel Def
+           aultBuild\RDKRL78_spi.rel DefaultBuild\bitmap_font.rel Defaul
+           tBuild\font_8x8.rel DefaultBuild\font_8x16.rel DefaultBuild\f
+           ont_helvr10.rel DefaultBuild\font_logos.rel DefaultBuild\font
+           _winfreesystem14x16.rel DefaultBuild\font_x5x7.rel DefaultBui
+           ld\font_x6x13.rel DefaultBuild\ST7579_LCD.rel DefaultBuild\YR
+           DKRL78_LCD.rel DefaultBuild\r_cg_rtc.rel DefaultBuild\r_cg_rt
+           c_user.rel -bcl78m -bcl78mf -iC:\Program Files (x86)\Renesas 
+           Electronics\CS+\CACX\CA78K0R\V1.72\lib78k0r
+Para-file:
+Out-file:  DefaultBuild\temperature.lmf
+Map-file:  DefaultBuild\temperature.map
+Direc-file:r_lk.dr
+Directive: ;/***********************************************************
+           ***********************************************************
+           ;* DISCLAIMER
+           ;* This software is supplied by Renesas Electronics Corporati
+           on and is only 
+           ;* intended for use with Renesas products. No other uses are 
+           authorized. This 
+           ;* software is owned by Renesas Electronics Corporation and i
+           s protected under 
+           ;* all applicable laws, including copyright laws.
+           ;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WAR
+           RANTIES REGARDING 
+           ;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCL
+           UDING BUT NOT 
+           ;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PA
+           RTICULAR PURPOSE 
+           ;* AND NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY D
+           ISCLAIMED.
+           ;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEI
+           THER RENESAS 
+           ;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIE
+           S SHALL BE LIABLE 
+           ;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUEN
+           TIAL DAMAGES FOR 
+           ;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR IT
+           S AFFILIATES HAVE 
+           ;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+           ;* Renesas reserves the right, without notice, to make change
+           s to this software 
+           ;* and to discontinue the availability of this software.  By 
+           using this software, 
+           ;* you agree to the additional terms and conditions found by 
+           accessing the 
+           ;* following link:
+           ;* http://www.renesas.com/disclaimer
+           ;*
+           ;* Copyright (C) 2011 Renesas Electronics Corporation. All ri
+           ghts reserved.
+           ;************************************************************
+           **********************************************************/
+           
+           ;/*
+           ;************************************************************
+           ***********************************************************
+           ;* File Name    : r_lk.dr
+           ;* Version      : CodeGenerator for RL78/G14 V1.01.01 [11 Oct
+            2011]
+           ;* Device(s)    : R5F104PJ
+           ;* Tool-Chain   : CA78K0R
+           ;* Description  : This is the link file.
+           ;* Creation Date: 8/23/2012
+           ;************************************************************
+           ***********************************************************
+           ;*/
+           ; [Sample of Link Directive File]
+           ; ***********************************************************
+           **
+           ; Link Directive File is created by users when memory or segm
+           ent
+           ; location needs to be changed from the default as the follow
+           ing
+           ; cases, for instance:
+           ;    1. In case the stack area should be in fixed area
+           ;    2. In case the external memory should be used
+           ;
+           ; Please change the start address, the size of memory, 
+           ; and the name of memory or segment according to your system,
+           
+           ; and link this file with -D linker option if necessary.
+           ;
+           ;   MEMORY directive : Declares an address in installed memor
+           y.
+           ;                      Devides memory into two or more areas 
+           and
+           ;                      specifies a memory area
+           ;   MERGE directive  : Specifies location of a segment
+           ; ***********************************************************
+           **
+           
+           ; <Example on how to specify the stack area>
+           ;  Please specify the linker option -SSTK.
+           ;  The stack area should be in the internal RAM area.
+           ;
+           ;      START ADDRESS, STACK SIZE
+           ;memory STK : ( 0FB000H, 100H )
+           ; <Example of locating data in external memory>
+           ; The section name output by C compiler can be changed with
+           ; #pragma section function.
+           ;
+           ; If the name of ROMization-related section which has global
+           ; variables with initial values is changed, the modification 
+           of
+           ; C start-up routine will be required. 
+           ; Please refer the CC78K0R C Compiler Language User's Manual 
+           
+           ; Language Chap.11 in detail.
+           ;
+           ; ex. This is the example of renaming the @@DATAL segment.
+           ;   #pragma section @@DATAL EXTDATA
+           ;
+           ;   By the following directives, "EXTDATA" segment is located
+            in EXMEM area.
+           ;
+           ;        START ADDRESS, MEMORY SIZE
+
+
+*** Link information ***
+
+    58 output segment(s)
+ 72C3H byte(s) real data
+  4673 symbol(s) defined
+
+
+*** Memory map ***
+
+
+  SPACE=REGULAR
+
+  MEMORY=ROM
+  BASE ADDRESS=00000H   SIZE=10000H
+         OUTPUT   INPUT    INPUT      BASE      SIZE
+         SEGMENT  SEGMENT  MODULE     ADDRESS
+         @@VECT00                     00000H    00002H  CSEG AT
+                  @@VECT00 @cstart    00000H    00002H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  @cstart    00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_main     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_systeminit
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_cgc   00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_cgc_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_port
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_port_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_serial
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_serial_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_it    00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_it_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  glyph      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  glyph_register
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  lcd        00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  RDKRL78_spi
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  bitmap_font
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_8x8   00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_8x16
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_helvr10
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_logos
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_winfreesystem14x16
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_x5x7
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  font_x6x13
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  ST7579_LCD
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  YRDKRL78_LCD
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_rtc   00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cg_rtc_user
+                                      00002H    00000H
+         @@RLINIT                     00002H    00000H  CSEG UNIT64KP
+                  @@RLINIT @cstart    00002H    00000H
+                  @@RLINIT r_main     00002H    00000H
+                  @@RLINIT r_systeminit
+                                      00002H    00000H
+                  @@RLINIT r_cg_cgc   00002H    00000H
+                  @@RLINIT r_cg_cgc_user
+                                      00002H    00000H
+                  @@RLINIT r_cg_port
+                                      00002H    00000H
+                  @@RLINIT r_cg_port_user
+                                      00002H    00000H
+                  @@RLINIT r_cg_serial
+                                      00002H    00000H
+                  @@RLINIT r_cg_serial_user
+                                      00002H    00000H
+                  @@RLINIT r_cg_it    00002H    00000H
+                  @@RLINIT r_cg_it_user
+                                      00002H    00000H
+                  @@RLINIT glyph      00002H    00000H
+                  @@RLINIT glyph_register
+                                      00002H    00000H
+                  @@RLINIT lcd        00002H    00000H
+                  @@RLINIT RDKRL78_spi
+                                      00002H    00000H
+                  @@RLINIT bitmap_font
+                                      00002H    00000H
+                  @@RLINIT font_8x8   00002H    00000H
+                  @@RLINIT font_8x16
+                                      00002H    00000H
+                  @@RLINIT font_helvr10
+                                      00002H    00000H
+                  @@RLINIT font_logos
+                                      00002H    00000H
+                  @@RLINIT font_winfreesystem14x16
+                                      00002H    00000H
+                  @@RLINIT font_x5x7
+                                      00002H    00000H
+                  @@RLINIT font_x6x13
+                                      00002H    00000H
+                  @@RLINIT ST7579_LCD
+                                      00002H    00000H
+                  @@RLINIT YRDKRL78_LCD
+                                      00002H    00000H
+                  @@RLINIT r_cg_rtc   00002H    00000H
+                  @@RLINIT r_cg_rtc_user
+                                      00002H    00000H
+                  @@RLINIT @rom       00002H    00000H
+         @@R_INIS                     00002H    00000H  CSEG UNIT64KP
+                  @@R_INIS @cstart    00002H    00000H
+                  @@R_INIS r_main     00002H    00000H
+                  @@R_INIS r_systeminit
+                                      00002H    00000H
+                  @@R_INIS r_cg_cgc   00002H    00000H
+                  @@R_INIS r_cg_cgc_user
+                                      00002H    00000H
+                  @@R_INIS r_cg_port
+                                      00002H    00000H
+                  @@R_INIS r_cg_port_user
+                                      00002H    00000H
+                  @@R_INIS r_cg_serial
+                                      00002H    00000H
+                  @@R_INIS r_cg_serial_user
+                                      00002H    00000H
+                  @@R_INIS r_cg_it    00002H    00000H
+                  @@R_INIS r_cg_it_user
+                                      00002H    00000H
+                  @@R_INIS glyph      00002H    00000H
+                  @@R_INIS glyph_register
+                                      00002H    00000H
+                  @@R_INIS lcd        00002H    00000H
+                  @@R_INIS RDKRL78_spi
+                                      00002H    00000H
+                  @@R_INIS bitmap_font
+                                      00002H    00000H
+                  @@R_INIS font_8x8   00002H    00000H
+                  @@R_INIS font_8x16
+                                      00002H    00000H
+                  @@R_INIS font_helvr10
+                                      00002H    00000H
+                  @@R_INIS font_logos
+                                      00002H    00000H
+                  @@R_INIS font_winfreesystem14x16
+                                      00002H    00000H
+                  @@R_INIS font_x5x7
+                                      00002H    00000H
+                  @@R_INIS font_x6x13
+                                      00002H    00000H
+                  @@R_INIS ST7579_LCD
+                                      00002H    00000H
+                  @@R_INIS YRDKRL78_LCD
+                                      00002H    00000H
+                  @@R_INIS r_cg_rtc   00002H    00000H
+                  @@R_INIS r_cg_rtc_user
+                                      00002H    00000H
+                  @@R_INIS @rom       00002H    00000H
+         @@CALT                       00002H    00000H  CSEG
+                  @@CALT   @cstart    00002H    00000H
+                  @@CALT   r_main     00002H    00000H
+                  @@CALT   r_systeminit
+                                      00002H    00000H
+                  @@CALT   r_cg_cgc   00002H    00000H
+                  @@CALT   r_cg_cgc_user
+                                      00002H    00000H
+                  @@CALT   r_cg_port
+                                      00002H    00000H
+                  @@CALT   r_cg_port_user
+                                      00002H    00000H
+                  @@CALT   r_cg_serial
+                                      00002H    00000H
+                  @@CALT   r_cg_serial_user
+                                      00002H    00000H
+                  @@CALT   r_cg_it    00002H    00000H
+                  @@CALT   r_cg_it_user
+                                      00002H    00000H
+                  @@CALT   glyph      00002H    00000H
+                  @@CALT   glyph_register
+                                      00002H    00000H
+                  @@CALT   lcd        00002H    00000H
+                  @@CALT   RDKRL78_spi
+                                      00002H    00000H
+                  @@CALT   bitmap_font
+                                      00002H    00000H
+                  @@CALT   font_8x8   00002H    00000H
+                  @@CALT   font_8x16
+                                      00002H    00000H
+                  @@CALT   font_helvr10
+                                      00002H    00000H
+                  @@CALT   font_logos
+                                      00002H    00000H
+                  @@CALT   font_winfreesystem14x16
+                                      00002H    00000H
+                  @@CALT   font_x5x7
+                                      00002H    00000H
+                  @@CALT   font_x6x13
+                                      00002H    00000H
+                  @@CALT   ST7579_LCD
+                                      00002H    00000H
+                  @@CALT   YRDKRL78_LCD
+                                      00002H    00000H
+                  @@CALT   r_cg_rtc   00002H    00000H
+                  @@CALT   r_cg_rtc_user
+                                      00002H    00000H
+         ??NMIROM                     00002H    00002H  CSEG
+* gap *                               00004H    00012H
+         @@VECT16                     00016H    00002H  CSEG AT
+                  @@VECT16 r_cg_serial_user
+                                      00016H    00002H
+* gap *                               00018H    00006H
+         @@VECT1E                     0001EH    00004H  CSEG AT
+                  @@VECT1E r_cg_serial_user
+                                      0001EH    00004H
+* gap *                               00022H    00002H
+         @@VECT24                     00024H    00004H  CSEG AT
+                  @@VECT24 r_cg_serial_user
+                                      00024H    00004H
+* gap *                               00028H    00002H
+         @@VECT2A                     0002AH    00002H  CSEG AT
+                  @@VECT2A r_cg_serial_user
+                                      0002AH    00002H
+* gap *                               0002CH    0000AH
+         @@VECT36                     00036H    00002H  CSEG AT
+                  @@VECT36 r_cg_rtc_user
+                                      00036H    00002H
+         @@VECT38                     00038H    00002H  CSEG AT
+                  @@VECT38 r_cg_it_user
+                                      00038H    00002H
+* gap *                               0003AH    00086H
+         ?CSEGOB0                     000C0H    00004H  CSEG OPT_BYTE
+         @@CODE                       000C4H    00000H  CSEG BASE
+                  @@CODE   r_main     000C4H    00000H
+                  @@CODE   r_systeminit
+                                      000C4H    00000H
+                  @@CODE   r_cg_cgc   000C4H    00000H
+                  @@CODE   r_cg_cgc_user
+                                      000C4H    00000H
+                  @@CODE   r_cg_port
+                                      000C4H    00000H
+                  @@CODE   r_cg_port_user
+                                      000C4H    00000H
+                  @@CODE   r_cg_serial
+                                      000C4H    00000H
+                  @@CODE   r_cg_serial_user
+                                      000C4H    00000H
+                  @@CODE   r_cg_it    000C4H    00000H
+                  @@CODE   r_cg_it_user
+                                      000C4H    00000H
+                  @@CODE   glyph      000C4H    00000H
+                  @@CODE   glyph_register
+                                      000C4H    00000H
+                  @@CODE   lcd        000C4H    00000H
+                  @@CODE   RDKRL78_spi
+                                      000C4H    00000H
+                  @@CODE   bitmap_font
+                                      000C4H    00000H
+                  @@CODE   font_8x8   000C4H    00000H
+                  @@CODE   font_8x16
+                                      000C4H    00000H
+                  @@CODE   font_helvr10
+                                      000C4H    00000H
+                  @@CODE   font_logos
+                                      000C4H    00000H
+                  @@CODE   font_winfreesystem14x16
+                                      000C4H    00000H
+                  @@CODE   font_x5x7
+                                      000C4H    00000H
+                  @@CODE   font_x6x13
+                                      000C4H    00000H
+                  @@CODE   ST7579_LCD
+                                      000C4H    00000H
+                  @@CODE   YRDKRL78_LCD
+                                      000C4H    00000H
+                  @@CODE   r_cg_rtc   000C4H    00000H
+                  @@CODE   r_cg_rtc_user
+                                      000C4H    00000H
+         ?CSEGSI                      000C4H    0000AH  CSEG
+         ?OCDSTAD                     000CEH    0000AH  CSEG
+         @@LCODE                      000D8H    006CBH  CSEG BASE
+                  @@LCODE  @cstart    000D8H    000ADH
+                  @@LCODE  @isdiv     00185H    00022H
+                  @@LCODE  @iudiv     001A7H    00010H
+                  @@LCODE  @curem     001B7H    00017H
+                  @@LCODE  @isrem     001CEH    00021H
+                  @@LCODE  @iurem     001EFH    00012H
+                  @@LCODE  @iscmp     00201H    0000CH
+                  @@LCODE  @divuw     0020DH    00017H
+                  @@LCODE  m_fadd     00224H    0013AH
+                  @@LCODE  m_fcom1    0035EH    000CFH
+                  @@LCODE  m_fcom5    0042DH    0002AH
+                  @@LCODE  m_fcom6    00457H    0001FH
+                  @@LCODE  m_fmul     00476H    00113H
+                  @@LCODE  m_fsub     00589H    00014H
+                  @@LCODE  m_fdiv     0059DH    0012BH
+                  @@LCODE  m_ftols    006C8H    00078H
+                  @@LCODE  m_lstof    00740H    00016H
+                  @@LCODE  m_lutof    00756H    0004DH
+         @@BASE                       007A3H    0028FH  CSEG BASE
+                  @@BASE   r_main     007A3H    00000H
+                  @@BASE   r_systeminit
+                                      007A3H    00000H
+                  @@BASE   r_cg_cgc   007A3H    00000H
+                  @@BASE   r_cg_cgc_user
+                                      007A3H    00000H
+                  @@BASE   r_cg_port
+                                      007A3H    00000H
+                  @@BASE   r_cg_port_user
+                                      007A3H    00000H
+                  @@BASE   r_cg_serial
+                                      007A3H    00000H
+                  @@BASE   r_cg_serial_user
+                                      007A3H    00250H
+                  @@BASE   r_cg_it    009F3H    00000H
+                  @@BASE   r_cg_it_user
+                                      009F3H    00005H
+                  @@BASE   glyph      009F8H    00000H
+                  @@BASE   glyph_register
+                                      009F8H    00000H
+                  @@BASE   lcd        009F8H    00000H
+                  @@BASE   RDKRL78_spi
+                                      009F8H    00000H
+                  @@BASE   bitmap_font
+                                      009F8H    00000H
+                  @@BASE   font_8x8   009F8H    00000H
+                  @@BASE   font_8x16
+                                      009F8H    00000H
+                  @@BASE   font_helvr10
+                                      009F8H    00000H
+                  @@BASE   font_logos
+                                      009F8H    00000H
+                  @@BASE   font_winfreesystem14x16
+                                      009F8H    00000H
+                  @@BASE   font_x5x7
+                                      009F8H    00000H
+                  @@BASE   font_x6x13
+                                      009F8H    00000H
+                  @@BASE   ST7579_LCD
+                                      009F8H    00000H
+                  @@BASE   YRDKRL78_LCD
+                                      009F8H    00000H
+                  @@BASE   r_cg_rtc   009F8H    00000H
+                  @@BASE   r_cg_rtc_user
+                                      009F8H    0003AH
+         @@CNSTL                      00A32H    000CEH  CSEG PAGE64KP
+                  @@CNSTL  m_fcom5    00A32H    000CEH
+         @@R_INIT                     00B00H    00E24H  CSEG UNIT64KP
+                  @@R_INIT @cstart    00B00H    00000H
+                  @@R_INIT r_main     00B00H    0000EH
+                  @@R_INIT r_systeminit
+                                      00B0EH    00000H
+                  @@R_INIT r_cg_cgc   00B0EH    00000H
+                  @@R_INIT r_cg_cgc_user
+                                      00B0EH    00000H
+                  @@R_INIT r_cg_port
+                                      00B0EH    00000H
+                  @@R_INIT r_cg_port_user
+                                      00B0EH    00000H
+                  @@R_INIT r_cg_serial
+                                      00B0EH    00000H
+                  @@R_INIT r_cg_serial_user
+                                      00B0EH    00004H
+                  @@R_INIT r_cg_it    00B12H    00000H
+                  @@R_INIT r_cg_it_user
+                                      00B12H    00002H
+                  @@R_INIT glyph      00B14H    00000H
+                  @@R_INIT glyph_register
+                                      00B14H    00000H
+                  @@R_INIT lcd        00B14H    00000H
+                  @@R_INIT RDKRL78_spi
+                                      00B14H    00010H
+                  @@R_INIT bitmap_font
+                                      00B24H    00000H
+                  @@R_INIT font_8x8   00B24H    00200H
+                  @@R_INIT font_8x16
+                                      00D24H    00200H
+                  @@R_INIT font_helvr10
+                                      00F24H    00200H
+                  @@R_INIT font_logos
+                                      01124H    00200H
+                  @@R_INIT font_winfreesystem14x16
+                                      01324H    00200H
+                  @@R_INIT font_x5x7
+                                      01524H    00200H
+                  @@R_INIT font_x6x13
+                                      01724H    00200H
+                  @@R_INIT ST7579_LCD
+                                      01924H    00000H
+                  @@R_INIT YRDKRL78_LCD
+                                      01924H    00000H
+                  @@R_INIT r_cg_rtc   01924H    00000H
+                  @@R_INIT r_cg_rtc_user
+                                      01924H    00000H
+                  @@R_INIT @rom       01924H    00000H
+         @@LCODEL                     01924H    0057CH  CSEG
+                  @@LCODEL @stkinit   01924H    00044H
+                  @@LCODEL sprintf_n
+                                      01968H    0046AH
+                  @@LCODEL free       01DD2H    00011H
+                  @@LCODEL exit       01DE3H    0001CH
+                  @@LCODEL @brk       01DFFH    00017H
+                  @@LCODEL @sbrk      01E16H    00042H
+                  @@LCODEL strncpy_n
+                                      01E58H    00025H
+                  @@LCODEL strcat_n   01E7DH    00019H
+                  @@LCODEL strlen_n   01E96H    0000AH
+* gap *                               01EA0H    01160H
+         @@CNST                       03000H    033CEH  CSEG MIRRORP
+                  @@CNST   @cstart    03000H    00000H
+                  @@CNST   r_main     03000H    0000EH
+                  @@CNST   r_systeminit
+                                      0300EH    00000H
+                  @@CNST   r_cg_cgc   0300EH    00000H
+                  @@CNST   r_cg_cgc_user
+                                      0300EH    00000H
+                  @@CNST   r_cg_port
+                                      0300EH    00000H
+                  @@CNST   r_cg_port_user
+                                      0300EH    00000H
+                  @@CNST   r_cg_serial
+                                      0300EH    00000H
+                  @@CNST   r_cg_serial_user
+                                      0300EH    00004H
+                  @@CNST   r_cg_it    03012H    00000H
+                  @@CNST   r_cg_it_user
+                                      03012H    00000H
+                  @@CNST   glyph      03012H    00032H
+                  @@CNST   glyph_register
+                                      03044H    00000H
+                  @@CNST   lcd        03044H    00000H
+                  @@CNST   RDKRL78_spi
+                                      03044H    00000H
+                  @@CNST   bitmap_font
+                                      03044H    0029EH
+                  @@CNST   font_8x8   032E2H    00A00H
+                  @@CNST   font_8x16
+                                      03CE2H    01200H
+                  @@CNST   font_helvr10
+                                      04EE2H    004EAH
+                  @@CNST   font_logos
+                                      053CCH    000A2H
+                  @@CNST   font_winfreesystem14x16
+                                      0546EH    004EAH
+                  @@CNST   font_x5x7
+                                      05958H    0037AH
+                  @@CNST   font_x6x13
+                                      05CD2H    006F2H
+                  @@CNST   ST7579_LCD
+                                      063C4H    0000AH
+                  @@CNST   YRDKRL78_LCD
+                                      063CEH    00000H
+                  @@CNST   r_cg_rtc   063CEH    00000H
+                  @@CNST   r_cg_rtc_user
+                                      063CEH    00000H
+         @@CODEL                      063CEH    02101H  CSEG
+                  @@CODEL  r_main     063CEH    000FCH
+                  @@CODEL  r_systeminit
+                                      064CAH    00032H
+                  @@CODEL  r_cg_cgc   064FCH    00041H
+                  @@CODEL  r_cg_cgc_user
+                                      0653DH    00005H
+                  @@CODEL  r_cg_port
+                                      06542H    00012H
+                  @@CODEL  r_cg_port_user
+                                      06554H    00000H
+                  @@CODEL  r_cg_serial
+                                      06554H    00469H
+                  @@CODEL  r_cg_serial_user
+                                      069BDH    002F9H
+                  @@CODEL  r_cg_it    06CB6H    00032H
+                  @@CODEL  r_cg_it_user
+                                      06CE8H    0001BH
+                  @@CODEL  glyph      06D03H    005E8H
+                  @@CODEL  glyph_register
+                                      072EBH    000E1H
+                  @@CODEL  lcd        073CCH    0008DH
+                  @@CODEL  RDKRL78_spi
+                                      07459H    00101H
+                  @@CODEL  bitmap_font
+                                      0755AH    00000H
+                  @@CODEL  font_8x8   0755AH    00000H
+                  @@CODEL  font_8x16
+                                      0755AH    00000H
+                  @@CODEL  font_helvr10
+                                      0755AH    00000H
+                  @@CODEL  font_logos
+                                      0755AH    00000H
+                  @@CODEL  font_winfreesystem14x16
+                                      0755AH    00000H
+                  @@CODEL  font_x5x7
+                                      0755AH    00000H
+                  @@CODEL  font_x6x13
+                                      0755AH    00000H
+                  @@CODEL  ST7579_LCD
+                                      0755AH    00D6CH
+                  @@CODEL  YRDKRL78_LCD
+                                      082C6H    0004DH
+                  @@CODEL  r_cg_rtc   08313H    001BBH
+                  @@CODEL  r_cg_rtc_user
+                                      084CEH    00001H
+* gap *                               084CFH    07B31H
+
+  MEMORY=RAM
+  BASE ADDRESS=F9F00H   SIZE=06100H
+         OUTPUT   INPUT    INPUT      BASE      SIZE
+         SEGMENT  SEGMENT  MODULE     ADDRESS
+         @@DATA                       F9F00H    00180H  DSEG BASEP
+                  @@DATA   @cstart    F9F00H    000BAH
+                  @@DATA   r_main     F9FBAH    00026H
+                  @@DATA   r_systeminit
+                                      F9FE0H    00000H
+                  @@DATA   r_cg_cgc   F9FE0H    00000H
+                  @@DATA   r_cg_cgc_user
+                                      F9FE0H    00000H
+                  @@DATA   r_cg_port
+                                      F9FE0H    00000H
+                  @@DATA   r_cg_port_user
+                                      F9FE0H    00000H
+                  @@DATA   r_cg_serial
+                                      F9FE0H    0002CH
+                  @@DATA   r_cg_serial_user
+                                      FA00CH    0002EH
+                  @@DATA   r_cg_it    FA03AH    00000H
+                  @@DATA   r_cg_it_user
+                                      FA03AH    00000H
+                  @@DATA   glyph      FA03AH    00044H
+                  @@DATA   glyph_register
+                                      FA07EH    00000H
+                  @@DATA   lcd        FA07EH    00002H
+                  @@DATA   RDKRL78_spi
+                                      FA080H    00000H
+                  @@DATA   bitmap_font
+                                      FA080H    00000H
+                  @@DATA   font_8x8   FA080H    00000H
+                  @@DATA   font_8x16
+                                      FA080H    00000H
+                  @@DATA   font_helvr10
+                                      FA080H    00000H
+                  @@DATA   font_logos
+                                      FA080H    00000H
+                  @@DATA   font_winfreesystem14x16
+                                      FA080H    00000H
+                  @@DATA   font_x5x7
+                                      FA080H    00000H
+                  @@DATA   font_x6x13
+                                      FA080H    00000H
+                  @@DATA   ST7579_LCD
+                                      FA080H    00000H
+                  @@DATA   YRDKRL78_LCD
+                                      FA080H    00000H
+                  @@DATA   r_cg_rtc   FA080H    00000H
+                  @@DATA   r_cg_rtc_user
+                                      FA080H    00000H
+                  @@DATA   @rom       FA080H    00000H
+         @@INIT                       FA080H    00E24H  DSEG BASEP
+                  @@INIT   @cstart    FA080H    00000H
+                  @@INIT   r_main     FA080H    0000EH
+                  @@INIT   r_systeminit
+                                      FA08EH    00000H
+                  @@INIT   r_cg_cgc   FA08EH    00000H
+                  @@INIT   r_cg_cgc_user
+                                      FA08EH    00000H
+                  @@INIT   r_cg_port
+                                      FA08EH    00000H
+                  @@INIT   r_cg_port_user
+                                      FA08EH    00000H
+                  @@INIT   r_cg_serial
+                                      FA08EH    00000H
+                  @@INIT   r_cg_serial_user
+                                      FA08EH    00004H
+                  @@INIT   r_cg_it    FA092H    00000H
+                  @@INIT   r_cg_it_user
+                                      FA092H    00002H
+                  @@INIT   glyph      FA094H    00000H
+                  @@INIT   glyph_register
+                                      FA094H    00000H
+                  @@INIT   lcd        FA094H    00000H
+                  @@INIT   RDKRL78_spi
+                                      FA094H    00010H
+                  @@INIT   bitmap_font
+                                      FA0A4H    00000H
+                  @@INIT   font_8x8   FA0A4H    00200H
+                  @@INIT   font_8x16
+                                      FA2A4H    00200H
+                  @@INIT   font_helvr10
+                                      FA4A4H    00200H
+                  @@INIT   font_logos
+                                      FA6A4H    00200H
+                  @@INIT   font_winfreesystem14x16
+                                      FA8A4H    00200H
+                  @@INIT   font_x5x7
+                                      FAAA4H    00200H
+                  @@INIT   font_x6x13
+                                      FACA4H    00200H
+                  @@INIT   ST7579_LCD
+                                      FAEA4H    00000H
+                  @@INIT   YRDKRL78_LCD
+                                      FAEA4H    00000H
+                  @@INIT   r_cg_rtc   FAEA4H    00000H
+                  @@INIT   r_cg_rtc_user
+                                      FAEA4H    00000H
+                  @@INIT   @rom       FAEA4H    00000H
+         @@INIS                       FAEA4H    00000H  DSEG UNITP
+                  @@INIS   @cstart    FAEA4H    00000H
+                  @@INIS   r_main     FAEA4H    00000H
+                  @@INIS   r_systeminit
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_cgc   FAEA4H    00000H
+                  @@INIS   r_cg_cgc_user
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_port
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_port_user
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_serial
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_serial_user
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_it    FAEA4H    00000H
+                  @@INIS   r_cg_it_user
+                                      FAEA4H    00000H
+                  @@INIS   glyph      FAEA4H    00000H
+                  @@INIS   glyph_register
+                                      FAEA4H    00000H
+                  @@INIS   lcd        FAEA4H    00000H
+                  @@INIS   RDKRL78_spi
+                                      FAEA4H    00000H
+                  @@INIS   bitmap_font
+                                      FAEA4H    00000H
+                  @@INIS   font_8x8   FAEA4H    00000H
+                  @@INIS   font_8x16
+                                      FAEA4H    00000H
+                  @@INIS   font_helvr10
+                                      FAEA4H    00000H
+                  @@INIS   font_logos
+                                      FAEA4H    00000H
+                  @@INIS   font_winfreesystem14x16
+                                      FAEA4H    00000H
+                  @@INIS   font_x5x7
+                                      FAEA4H    00000H
+                  @@INIS   font_x6x13
+                                      FAEA4H    00000H
+                  @@INIS   ST7579_LCD
+                                      FAEA4H    00000H
+                  @@INIS   YRDKRL78_LCD
+                                      FAEA4H    00000H
+                  @@INIS   r_cg_rtc   FAEA4H    00000H
+                  @@INIS   r_cg_rtc_user
+                                      FAEA4H    00000H
+                  @@INIS   @rom       FAEA4H    00000H
+         @@DATS                       FAEA4H    00000H  DSEG UNITP
+                  @@DATS   @cstart    FAEA4H    00000H
+                  @@DATS   r_main     FAEA4H    00000H
+                  @@DATS   r_systeminit
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_cgc   FAEA4H    00000H
+                  @@DATS   r_cg_cgc_user
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_port
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_port_user
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_serial
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_serial_user
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_it    FAEA4H    00000H
+                  @@DATS   r_cg_it_user
+                                      FAEA4H    00000H
+                  @@DATS   glyph      FAEA4H    00000H
+                  @@DATS   glyph_register
+                                      FAEA4H    00000H
+                  @@DATS   lcd        FAEA4H    00000H
+                  @@DATS   RDKRL78_spi
+                                      FAEA4H    00000H
+                  @@DATS   bitmap_font
+                                      FAEA4H    00000H
+                  @@DATS   font_8x8   FAEA4H    00000H
+                  @@DATS   font_8x16
+                                      FAEA4H    00000H
+                  @@DATS   font_helvr10
+                                      FAEA4H    00000H
+                  @@DATS   font_logos
+                                      FAEA4H    00000H
+                  @@DATS   font_winfreesystem14x16
+                                      FAEA4H    00000H
+                  @@DATS   font_x5x7
+                                      FAEA4H    00000H
+                  @@DATS   font_x6x13
+                                      FAEA4H    00000H
+                  @@DATS   ST7579_LCD
+                                      FAEA4H    00000H
+                  @@DATS   YRDKRL78_LCD
+                                      FAEA4H    00000H
+                  @@DATS   r_cg_rtc   FAEA4H    00000H
+                  @@DATS   r_cg_rtc_user
+                                      FAEA4H    00000H
+                  @@DATS   @rom       FAEA4H    00000H
+         @@INITL                      FAEA4H    00000H  DSEG UNIT64KP
+                  @@INITL  @cstart    FAEA4H    00000H
+                  @@INITL  r_main     FAEA4H    00000H
+                  @@INITL  r_systeminit
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_cgc   FAEA4H    00000H
+                  @@INITL  r_cg_cgc_user
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_port
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_port_user
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_serial
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_serial_user
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_it    FAEA4H    00000H
+                  @@INITL  r_cg_it_user
+                                      FAEA4H    00000H
+                  @@INITL  glyph      FAEA4H    00000H
+                  @@INITL  glyph_register
+                                      FAEA4H    00000H
+                  @@INITL  lcd        FAEA4H    00000H
+                  @@INITL  RDKRL78_spi
+                                      FAEA4H    00000H
+                  @@INITL  bitmap_font
+                                      FAEA4H    00000H
+                  @@INITL  font_8x8   FAEA4H    00000H
+                  @@INITL  font_8x16
+                                      FAEA4H    00000H
+                  @@INITL  font_helvr10
+                                      FAEA4H    00000H
+                  @@INITL  font_logos
+                                      FAEA4H    00000H
+                  @@INITL  font_winfreesystem14x16
+                                      FAEA4H    00000H
+                  @@INITL  font_x5x7
+                                      FAEA4H    00000H
+                  @@INITL  font_x6x13
+                                      FAEA4H    00000H
+                  @@INITL  ST7579_LCD
+                                      FAEA4H    00000H
+                  @@INITL  YRDKRL78_LCD
+                                      FAEA4H    00000H
+                  @@INITL  r_cg_rtc   FAEA4H    00000H
+                  @@INITL  r_cg_rtc_user
+                                      FAEA4H    00000H
+                  @@INITL  @rom       FAEA4H    00000H
+         @@DATAL                      FAEA4H    00000H  DSEG UNIT64KP
+                  @@DATAL  @cstart    FAEA4H    00000H
+                  @@DATAL  r_main     FAEA4H    00000H
+                  @@DATAL  r_systeminit
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_cgc   FAEA4H    00000H
+                  @@DATAL  r_cg_cgc_user
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_port
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_port_user
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_serial
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_serial_user
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_it    FAEA4H    00000H
+                  @@DATAL  r_cg_it_user
+                                      FAEA4H    00000H
+                  @@DATAL  glyph      FAEA4H    00000H
+                  @@DATAL  glyph_register
+                                      FAEA4H    00000H
+                  @@DATAL  lcd        FAEA4H    00000H
+                  @@DATAL  RDKRL78_spi
+                                      FAEA4H    00000H
+                  @@DATAL  bitmap_font
+                                      FAEA4H    00000H
+                  @@DATAL  font_8x8   FAEA4H    00000H
+                  @@DATAL  font_8x16
+                                      FAEA4H    00000H
+                  @@DATAL  font_helvr10
+                                      FAEA4H    00000H
+                  @@DATAL  font_logos
+                                      FAEA4H    00000H
+                  @@DATAL  font_winfreesystem14x16
+                                      FAEA4H    00000H
+                  @@DATAL  font_x5x7
+                                      FAEA4H    00000H
+                  @@DATAL  font_x6x13
+                                      FAEA4H    00000H
+                  @@DATAL  ST7579_LCD
+                                      FAEA4H    00000H
+                  @@DATAL  YRDKRL78_LCD
+                                      FAEA4H    00000H
+                  @@DATAL  r_cg_rtc   FAEA4H    00000H
+                  @@DATAL  r_cg_rtc_user
+                                      FAEA4H    00000H
+                  @@DATAL  @rom       FAEA4H    00000H
+         @@BITS                       FAEA4H    00000H  BSEG
+                  @@BITS   @cstart    FAEA4H.0  00000H.0
+                  @@BITS   r_main     FAEA4H.0  00000H.0
+                  @@BITS   r_systeminit
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_cgc   FAEA4H.0  00000H.0
+                  @@BITS   r_cg_cgc_user
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_port
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_port_user
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_serial
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_serial_user
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_it    FAEA4H.0  00000H.0
+                  @@BITS   r_cg_it_user
+                                      FAEA4H.0  00000H.0
+                  @@BITS   glyph      FAEA4H.0  00000H.0
+                  @@BITS   glyph_register
+                                      FAEA4H.0  00000H.0
+                  @@BITS   lcd        FAEA4H.0  00000H.0
+                  @@BITS   RDKRL78_spi
+                                      FAEA4H.0  00000H.0
+                  @@BITS   bitmap_font
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_8x8   FAEA4H.0  00000H.0
+                  @@BITS   font_8x16
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_helvr10
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_logos
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_winfreesystem14x16
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_x5x7
+                                      FAEA4H.0  00000H.0
+                  @@BITS   font_x6x13
+                                      FAEA4H.0  00000H.0
+                  @@BITS   ST7579_LCD
+                                      FAEA4H.0  00000H.0
+                  @@BITS   YRDKRL78_LCD
+                                      FAEA4H.0  00000H.0
+                  @@BITS   r_cg_rtc   FAEA4H.0  00000H.0
+                  @@BITS   r_cg_rtc_user
+                                      FAEA4H.0  00000H.0
+* gap *                               FAEA4H    05030H
+         @@SEGREG                     FFED4H    00004H  DSEG AT
+                  @@SEGREG @SEGREG    FFED4H    00004H
+         @@RTARG0                     FFED8H    00008H  DSEG AT
+                  @@RTARG0 @RTARG0    FFED8H    00008H
+* gap *                               FFEE0H    00020H
+* gap (Not Free Area) *               FFF00H    00100H
+
+
+ Target chip : R5F104PJ
+ Device file : V2.10
+
