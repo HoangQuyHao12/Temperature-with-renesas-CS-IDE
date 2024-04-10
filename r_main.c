@@ -98,6 +98,7 @@ static uint8_t tx_string[TX_STRING_SIZE] = "AVERAGE";
 
 /*switch flag for Switch_TimeChange function.*/
 unsigned char sw1_prev = 0;
+unsigned char sw2_prev = 0;
 
 /***********************************************************************************************************************
  * Function Name: Switch_TimeChange
